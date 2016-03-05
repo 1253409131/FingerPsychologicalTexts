@@ -18,6 +18,9 @@
 #define kHot @"http://bapi.xinli001.com/ceshi/host_ceshi_list.json/?rows=10&offset=0"
 
 //发现：
+#define kDiscover @"http://bapi.xinli001.com/ceshi/day_ceshi_list.json/?rows=4&offset=0"
+
+//发现：
 //图片：
 //http://image.xinli001.com/20151125/154823jf0ex0r5jhaytvt0.jpg
 //发现->爱情测试

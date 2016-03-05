@@ -1,24 +1,22 @@
 //
-//  MineViewController.m
+//  ViewController.m
 //  FingerPsychologicalTexts
 //
-//  Created by scjy on 16/3/3.
+//  Created by scjy on 16/3/5.
 //  Copyright © 2016年 秦俊珍. All rights reserved.
 //
 
-#import "MineViewController.h"
+#import "ViewController.h"
 
-@interface MineViewController ()
+@interface ViewController ()
 
 @end
 
-@implementation MineViewController
+@implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor yellowColor];
-    
 }
 
 - (void)didReceiveMemoryWarning {

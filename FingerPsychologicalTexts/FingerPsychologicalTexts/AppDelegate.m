@@ -32,6 +32,7 @@
     UINavigationController *newNav = newStoryBoard.instantiateInitialViewController;
     newNav.tabBarItem.image = [UIImage imageNamed:@"latestImage1"];
     UIImage *newImage = [UIImage imageNamed:@"latestImage2"];
+    newNav.title = @"最新";
     //tabBar设置选中的图片按照原始状态显示
     newNav.tabBarItem.selectedImage = [newImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //调整tabBar图片显示位置：按照上，下，左，右的顺序
@@ -42,6 +43,7 @@
     UINavigationController *hotNav = hotStoryBoard.instantiateInitialViewController;
     hotNav.tabBarItem.image = [UIImage imageNamed:@"hotestImage1"];
     UIImage *hotImage = [UIImage imageNamed:@"hotestImage2"];
+    hotNav.title = @"最热";
     //tabBar设置选中的图片按照原始状态显示
     hotNav.tabBarItem.selectedImage = [hotImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //调整tabBar图片显示位置：按照上，下，左，右的顺序
@@ -52,6 +54,7 @@
     UINavigationController *discoverNav = discoverStoryBoard.instantiateInitialViewController;
     discoverNav.tabBarItem.image = [UIImage imageNamed:@"findImage1"];
     UIImage *discoverImage = [UIImage imageNamed:@"findImage2"];
+    discoverNav.title = @"发现";
     //tabBar设置选中的图片按照原始状态显示
     discoverNav.tabBarItem.selectedImage = [discoverImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //调整tabBar图片显示位置：按照上，下，左，右的顺序
@@ -63,12 +66,14 @@
     UINavigationController *mineNav = mineStoryBoard.instantiateInitialViewController;
     mineNav.tabBarItem.image = [UIImage imageNamed:@"myImage1"];
     UIImage *mineImage = [UIImage imageNamed:@"myImage2"];
+    mineNav.title = @"我的";
     //tabBar设置选中的图片按照原始状态显示
     mineNav.tabBarItem.selectedImage = [mineImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //调整tabBar图片显示位置：按照上，下，左，右的顺序
     mineNav.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     
     tableBarVC.tabBar.barTintColor = [UIColor whiteColor];
+    [UITabBar appearance].tintColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
     
     //添加被管理的视图控制器
     tableBarVC.viewControllers = @[newNav,hotNav,discoverNav,mineNav];

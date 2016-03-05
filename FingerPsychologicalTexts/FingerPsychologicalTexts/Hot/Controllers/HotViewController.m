@@ -57,9 +57,9 @@
 //tableView开始刷新的时候调用
 //上拉
 - (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
-    self.refreshing = YES;
+    self.refreshing = NO;
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
-    _offset = 3;
+    _offset += 10;
 }
 
 
@@ -67,7 +67,7 @@
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
-    _offset += 10;
+    _offset = 0;
 }
 
 //刷新时间
@@ -79,7 +79,7 @@
 - (void)loadData{
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    [sessionManager GET:[NSString stringWithFormat:@"%@&offset& = %ld",kHot,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [sessionManager GET:[NSString stringWithFormat:@"%@&offset=%ld",kHot,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         QJZLog(@"downloadProgress = %@",downloadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         QJZLog(@"responseObject = %@",responseObject);

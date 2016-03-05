@@ -16,14 +16,43 @@
                     <view key="view" contentMode="scaleToFill" id="qSQ-gm-Vqd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myBg" translatesAutoresizingMaskIntoConstraints="NO" id="sND-by-KK6">
+                                <rect key="frame" x="0.0" y="64" width="375" height="157"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myNoLogin" translatesAutoresizingMaskIntoConstraints="NO" id="X9m-j2-kNV">
+                                <rect key="frame" x="147" y="179" width="80" height="80"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmb-Fk-za6">
+                                <rect key="frame" x="107" y="275" width="160" height="44"/>
+                                <color key="backgroundColor" red="0.22352941179999999" green="0.74509803919999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="登录">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPH-rn-jud">
+                                <rect key="frame" x="152" y="327" width="71" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="立即注册">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8MI-gm-wjC">
+                                <rect key="frame" x="323" y="72" width="44" height="44"/>
+                                <state key="normal" title="设置">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="我的" id="IQx-L8-6Yw"/>
+                    <navigationItem key="navigationItem" title="我的" id="yme-mJ-ArT"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VH-Iu-C4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092.5" y="436.5"/>
+            <point key="canvasLocation" x="1046.5" y="422.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OKb-Yw-wSG">
@@ -34,15 +63,23 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hhi-iB-OdH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.22352941179999999" green="0.74509803919999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="f0x-0n-fha" kind="relationship" relationship="rootViewController" id="9I2-rh-U8p"/>
+                        <segue destination="f0x-0n-fha" kind="relationship" relationship="rootViewController" id="WFx-C8-8ha"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEc-ya-HJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="628.5" y="436.5"/>
+            <point key="canvasLocation" x="625.5" y="431.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="myBg" width="320" height="147"/>
+        <image name="myNoLogin" width="80" height="80"/>
+    </resources>
 </document>

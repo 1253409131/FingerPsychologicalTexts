@@ -1,24 +1,22 @@
 //
-//  MineViewController.m
+//  StarTextViewController.m
 //  FingerPsychologicalTexts
 //
-//  Created by scjy on 16/3/3.
+//  Created by scjy on 16/3/5.
 //  Copyright © 2016年 秦俊珍. All rights reserved.
 //
 
-#import "MineViewController.h"
+#import "StarTextViewController.h"
 
-@interface MineViewController ()
+@interface StarTextViewController ()
 
 @end
 
-@implementation MineViewController
+@implementation StarTextViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor yellowColor];
-    
 }
 
 - (void)didReceiveMemoryWarning {
