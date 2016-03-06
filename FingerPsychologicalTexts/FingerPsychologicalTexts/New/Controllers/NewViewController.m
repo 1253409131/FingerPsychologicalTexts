@@ -13,6 +13,7 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "PrefixHeader.pch"
 #import "Header.h"
+#import "StarTextViewController.h"
 @interface NewViewController ()<UITableViewDelegate, UITableViewDataSource, PullingRefreshTableViewDelegate>
 {
     NSInteger _offset;//定义请求的页码
@@ -29,9 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    //在最新页面隐藏tabBar
-//    self.tabBarController.tabBar.hidden = YES;
-//    self.tableView.tableFooterView = [[UITableView alloc] init];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"NewTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     
     [self.view addSubview:self.tableView];
@@ -55,12 +54,27 @@
     return newCell;
 }
 
+//隐藏tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
 
 #pragma mark ---------- UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NewModel *newModel = self.newsArray[indexPath.row];
+    StarTextViewController *starTextVC = [[StarTextViewController alloc] init];
     
-    
+    starTextVC.title = newModel.title;
+    QJZLog(@"--------- = %@",starTextVC.title);
+    starTextVC.viewnum = newModel.viewnum;
+    starTextVC.commentnum = newModel.commentnum;
+    starTextVC.image = newModel.image;
+    starTextVC.content = newModel.content;
+    [self.navigationController pushViewController:starTextVC animated:YES];
 }
+
 
 
 #pragma mark ---------- PullingRefreshTableViewDelegate

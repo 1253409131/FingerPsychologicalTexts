@@ -14,6 +14,7 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "PrefixHeader.pch"
 #import "Header.h"
+#import "StarTextViewController.h"
 @interface HotViewController ()<UITableViewDelegate,UITableViewDataSource,PullingRefreshTableViewDelegate>
 {
     NSInteger _offset;//定义请求的页码
@@ -48,10 +49,25 @@
     return hotCell;
 }
 
-#pragma mark ---------- UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+//隐藏tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
+
+#pragma mark ---------- UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    HotModel *hotModel = self.hotArray[indexPath.row];
+    StarTextViewController *startTextVC = [[StarTextViewController alloc] init];
+    startTextVC.title = hotModel.title;
+    startTextVC.viewnum = hotModel.viewnum;
+    startTextVC.commentnum = hotModel.commentnum;
+    startTextVC.image = hotModel.image;
+    startTextVC.content = hotModel.content;
+    [self.navigationController pushViewController:startTextVC animated:YES];
+}
+
 
 #pragma mark -------- PULLingRefreshViewDelegate
 //tableView开始刷新的时候调用

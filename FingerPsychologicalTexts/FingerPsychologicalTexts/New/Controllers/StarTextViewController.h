@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface StarTextViewController : UIViewController
+@property (nonatomic, copy) NSString *viewnum;
+@property (nonatomic, copy) NSString *commentnum;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *content;
+
+
+
+
 
 @end

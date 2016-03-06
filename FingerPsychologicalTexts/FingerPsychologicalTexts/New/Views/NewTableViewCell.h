@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NewModel.h"
-
+#import "StarTextViewController.h"
 @interface NewTableViewCell : UITableViewCell
 @property (nonatomic, strong) NewModel *newsModel;
 
