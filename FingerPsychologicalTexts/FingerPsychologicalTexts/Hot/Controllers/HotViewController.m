@@ -49,11 +49,6 @@
     return hotCell;
 }
 
-//隐藏tabBar
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 #pragma mark ---------- UITableViewDelegate
 

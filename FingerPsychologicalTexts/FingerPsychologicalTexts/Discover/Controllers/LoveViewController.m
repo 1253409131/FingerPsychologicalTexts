@@ -1,76 +1,90 @@
 //
-//  NewViewController.m
-//  
+//  LoveViewController.m
+//  FingerPsychologicalTexts
 //
-//  Created by scjy on 16/3/3.
-//
+//  Created by scjy on 16/3/6.
+//  Copyright © 2016年 秦俊珍. All rights reserved.
 //
 
-#import "NewViewController.h"
-#import "NewTableViewCell.h"
+#import "LoveViewController.h"
+#import "LoveTableViewCell.h"
 #import "PullingRefreshTableView.h"
 #import "HWTool.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "PrefixHeader.pch"
 #import "Header.h"
 #import "StarTextViewController.h"
-@interface NewViewController ()<UITableViewDelegate, UITableViewDataSource, PullingRefreshTableViewDelegate>
+@interface LoveViewController ()<UITableViewDelegate,UITableViewDataSource,PullingRefreshTableViewDelegate>
 {
-    NSInteger _offset;//定义请求的页码
+    NSInteger _offset;//定义请求页码
+
+    
 }
 @property (nonatomic, assign) BOOL refreshing;
-@property(nonatomic, strong) PullingRefreshTableView *tableView;
-@property (nonatomic, strong) NSMutableArray *newsArray;
+@property (nonatomic, strong) PullingRefreshTableView *tableView;
+@property (nonatomic, strong) NSMutableArray *loveArray;
+@property (nonatomic, strong) NSMutableArray *lovesArray;//爱情
+@property (nonatomic, strong) NSMutableArray *characterArray;//性格
+@property (nonatomic, strong) NSMutableArray *powerArray;//能力
+@property (nonatomic, strong) NSMutableArray *memberArray;//会员
+@property (nonatomic, strong) NSMutableArray *majorArray;//专业
+@property (nonatomic, strong) NSMutableArray *likePlarArray;//好玩应用
 
 @end
 
-@implementation NewViewController
+@implementation LoveViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-
-    [self.tableView registerNib:[UINib nibWithNibName:@"NewTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
-    
+    if ([self.btnId isEqualToString:@"1"]) {
+        self.title = @"爱情测试";
+    }else if ([self.btnId isEqualToString:@"2"]){
+        self.title = @"性格测试";
+    }else if ([self.btnId isEqualToString:@"3"]){
+        self.title = @"能力测试";
+    }else if ([self.btnId isEqualToString:@"4"]){
+        self.title = @"会员测试";
+    }else{
+        self.title = @"专业测试";
+    }
+    self.view.backgroundColor = [UIColor redColor];
+    [self.tableView registerNib:[UINib nibWithNibName:@"LoveTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     [self.tableView launchRefreshing];
     
+    //根据上一页选择按钮，确定显示哪个页面
+    [self showSelectButton];
 }
 
 
-
-
-#pragma mark ---------- UITableViewDataSource
+#pragma mark --------- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.newsArray.count;
-    
+    return self.loveArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NewTableViewCell *newCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    newCell.newsModel = self.newsArray[indexPath.row];
-    return newCell;
+    LoveTableViewCell *loveCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    loveCell.loveModel = self.loveArray[indexPath.row];
+    return loveCell;
 }
 
-#pragma mark ---------- UITableViewDelegate
+#pragma mark -------- UITableViewDelegate
+//点击每一行推到下一个开始测试页面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NewModel *newModel = self.newsArray[indexPath.row];
+    LoveModel *loveModel = self.loveArray[indexPath.row];
     StarTextViewController *starTextVC = [[StarTextViewController alloc] init];
+    starTextVC.title = loveModel.title;
+    starTextVC.viewnum = loveModel.viewnum;
+    starTextVC.commentnum = loveModel.commentnum;
+    starTextVC.image = loveModel.image;
+    starTextVC.content = loveModel.content;
     
-    starTextVC.title = newModel.title;
-    QJZLog(@"--------- = %@",starTextVC.title);
-    starTextVC.viewnum = newModel.viewnum;
-    starTextVC.commentnum = newModel.commentnum;
-    starTextVC.image = newModel.image;
-    starTextVC.content = newModel.content;
     [self.navigationController pushViewController:starTextVC animated:YES];
+
 }
 
-
-
-#pragma mark ---------- PullingRefreshTableViewDelegate
+#pragma mark --------- PULLingRetreshTableViewDelegate
 //tableView开始刷新的时候调用
 //上拉
 - (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
@@ -79,51 +93,45 @@
     _offset += 10;
 }
 
-
 //下拉
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
     _offset = 0;
 }
-
 //刷新完成时间
 - (NSDate *)pullingTableViewRefreshingFinishedDate{
     return [HWTool getSystemNowDate];
 }
 
-
 //加载数据
 - (void)loadData{
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    [sessionManager GET:[NSString stringWithFormat:@"%@&offset=%ld",kNew,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [sessionManager GET:[NSString stringWithFormat:@"%@&category_id=%@&offset=%ld",kLove,_btnId, _offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         QJZLog(@"downloadProgress = %@",downloadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         QJZLog(@"responseObject = %@",responseObject);
+        
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"data"];
-        
         //下拉刷新的时候需要移除数组中的数据
         if (self.refreshing) {
-            if (self.newsArray.count > 0) {
-                [self.newsArray removeAllObjects];
+            if (self.loveArray.count > 0) {
+                [self.loveArray removeAllObjects];
             }
         }
         for (NSDictionary *dict in dataArray) {
-            NewModel *model = [[NewModel alloc] initWithDictionary:dict];
-            [self.newsArray addObject:model];
-            
+            LoveModel *model = [[LoveModel alloc] initWithDictionary:dict];
+            [self.loveArray addObject:model];
         }
         [self.tableView reloadData];
-    
+        
         
     
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         QJZLog(@"error = %@",error);
     }];
-    
     
     //完成加载
     [self.tableView tableViewDidFinishedLoading];
@@ -131,39 +139,50 @@
     
 }
 
-//手指开始拖动方法
+
+
+//选择按钮六个
+- (void)showSelectButton{
+    
+   
+    
+    
+    
+    
+    
+}
+
+
+
+
+//手指开始拖动的方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.tableView tableViewDidScroll:scrollView];
 }
-//手指结束拖动方法
+//手指结束拖动的方法
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     [self.tableView tableViewDidEndDragging:scrollView];
 }
 
-
-#pragma mark ----------- Lazy loading
+#pragma mark --------- Lazy loadign
 - (PullingRefreshTableView *)tableView{
     if (_tableView == nil) {
-        self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 108, kWidth, kHeight - 108) pullingDelegate:self];
+        self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight - 64) pullingDelegate:self];
         self.tableView.rowHeight = 280;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        
     }
     return _tableView;
 }
 
-
-- (NSMutableArray *)newsArray{
-    if (_newsArray == nil) {
-        self.newsArray = [NSMutableArray new];
+- (NSMutableArray *)loveArray{
+    if (_loveArray == nil) {
+        self.loveArray = [NSMutableArray new];
+        
     }
-    return _newsArray;
+    return _loveArray;
 }
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

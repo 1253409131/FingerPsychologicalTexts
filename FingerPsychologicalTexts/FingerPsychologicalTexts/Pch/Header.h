@@ -8,6 +8,18 @@
 
 #ifndef Header_h
 #define Header_h
+#import <Foundation/Foundation.h>
+
+typedef enum : NSUInteger {
+    PressButtonTypeLove = 1,
+    PressButtonTypeCharacter,
+    PressButtonTypePower,
+    PressButtonTypeMember,
+    PressButtonTypeMajor,
+    PressButtonTypeLikePlay,
+    
+} PressButtonType;
+
 
 
 //最新：
@@ -24,15 +36,19 @@
 //图片：
 //http://image.xinli001.com/20151125/154823jf0ex0r5jhaytvt0.jpg
 //发现->爱情测试
-//http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=1&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=10&rmd=-1
+#define kLove @"http://bapi.xinli001.com/ceshi/ceshis.json/?rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
+
 //发现->性格测试
-//http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1
+#define kCharacter @"http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
+
 //发现->能力测试
-//http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=3&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1
+#define kPower @"http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=3&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
 //发现->会员测试
-//http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=4&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1
+#define kMember @"http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=4&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
+
 //发现->专业测试
-//http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=5&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1
+#define kMajor @"http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=5&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
+
 //发现->好玩应用（空）
 //编辑推荐：4个：
 //http://bapi.xinli001.com/ceshi/day_ceshi_list.json/?rows=4&offset=0

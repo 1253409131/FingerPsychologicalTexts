@@ -7,7 +7,9 @@
 //
 
 #import "MineViewController.h"
-
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "SettingViewController.h"
 @interface MineViewController ()
 
 @end
@@ -17,9 +19,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor yellowColor];
+    
+   
+}
+
+- (IBAction)loginBtn:(id)sender {
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVC animated:YES];
     
 }
+
+
+- (IBAction)registerBtn:(id)sender {
+    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:registerVC animated:YES];
+    
+}
+
+
+- (IBAction)settingBtn:(id)sender {
+    SettingViewController *settingVC = [[SettingViewController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

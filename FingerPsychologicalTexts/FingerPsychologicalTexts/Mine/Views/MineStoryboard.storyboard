@@ -23,6 +23,25 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myNoLogin" translatesAutoresizingMaskIntoConstraints="NO" id="X9m-j2-kNV">
                                 <rect key="frame" x="147" y="179" width="80" height="80"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPH-rn-jud">
+                                <rect key="frame" x="152" y="327" width="71" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="立即注册">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="Bs7-ev-z7s"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8MI-gm-wjC">
+                                <rect key="frame" x="323" y="72" width="44" height="44"/>
+                                <state key="normal" title="设置">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="ent-HU-uEO"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmb-Fk-za6">
                                 <rect key="frame" x="107" y="275" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.22352941179999999" green="0.74509803919999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,25 +49,20 @@
                                 <state key="normal" title="登录">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPH-rn-jud">
-                                <rect key="frame" x="152" y="327" width="71" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="立即注册">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8MI-gm-wjC">
-                                <rect key="frame" x="323" y="72" width="44" height="44"/>
-                                <state key="normal" title="设置">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <connections>
+                                    <action selector="loginBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="139-fO-ZWE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="我的" id="yme-mJ-ArT"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="loginBtn" destination="Dmb-Fk-za6" id="Gcd-H5-D8X"/>
+                        <outlet property="registerBtn" destination="PPH-rn-jud" id="DuR-t7-3Jz"/>
+                        <outlet property="settingBtn" destination="8MI-gm-wjC" id="66y-5e-nxu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VH-Iu-C4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

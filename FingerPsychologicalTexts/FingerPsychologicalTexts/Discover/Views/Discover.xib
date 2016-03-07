@@ -17,25 +17,40 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyX-KK-6FB">
                     <rect key="frame" x="0.0" y="210" width="125" height="105"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="loveBtn:" destination="6HI-Yv-f6w" eventType="touchUpInside" id="k8V-uB-ecM"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFS-x4-jr6">
                     <rect key="frame" x="125" y="210" width="125" height="105"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="characterBtn:" destination="6HI-Yv-f6w" eventType="touchUpInside" id="XLV-Lw-nki"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPb-dQ-dno">
                     <rect key="frame" x="250" y="210" width="125" height="105"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="powerBtn:" destination="6HI-Yv-f6w" eventType="touchUpInside" id="oSD-g3-iaj"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YN-eS-NfU">
                     <rect key="frame" x="125" y="316" width="125" height="105"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRP-2g-NFo">
-                    <rect key="frame" x="250" y="316" width="125" height="105"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="majorBtn:" destination="6HI-Yv-f6w" eventType="touchUpInside" id="kn6-ry-gR6"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0Z-wn-alP">
                     <rect key="frame" x="0.0" y="316" width="125" height="105"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="memberBtn:" destination="6HI-Yv-f6w" eventType="touchUpInside" id="lDt-QB-gVL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRP-2g-NFo">
+                    <rect key="frame" x="250" y="316" width="125" height="105"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="characterIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x2o-GI-SN6">
@@ -102,6 +117,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <connections>
+                <outlet property="characterBtn" destination="gFS-x4-jr6" id="KgB-bM-or4"/>
+                <outlet property="loverBtn" destination="wyX-KK-6FB" id="kdi-So-uC3"/>
+                <outlet property="majorBtn" destination="0YN-eS-NfU" id="7RF-HJ-epc"/>
+                <outlet property="memberBtn" destination="Z0Z-wn-alP" id="4yj-wy-eFR"/>
+                <outlet property="powerBtn" destination="yPb-dQ-dno" id="cJa-2l-rbo"/>
+            </connections>
             <point key="canvasLocation" x="388.5" y="109.5"/>
         </view>
     </objects>

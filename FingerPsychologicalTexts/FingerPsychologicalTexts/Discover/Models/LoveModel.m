@@ -1,14 +1,14 @@
 //
-//  NewModel.m
+//  LoveModel.m
 //  FingerPsychologicalTexts
 //
-//  Created by scjy on 16/3/4.
+//  Created by scjy on 16/3/7.
 //  Copyright © 2016年 秦俊珍. All rights reserved.
 //
 
-#import "NewModel.h"
+#import "LoveModel.h"
 
-@implementation NewModel
+@implementation LoveModel
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
@@ -18,9 +18,10 @@
         self.viewnum = dict[@"viewnum"];
         self.commentnum = dict[@"commentnum"];
         self.content = dict[@"content"];
+        self.category = dict[@"category"];
         self.category_id = dict[@"category_id"];
     }
-    
     return self;
 }
+
 @end

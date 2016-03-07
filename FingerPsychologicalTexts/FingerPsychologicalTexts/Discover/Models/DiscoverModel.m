@@ -1,15 +1,14 @@
 //
-//  NewModel.m
+//  DiscoverModel.m
 //  FingerPsychologicalTexts
 //
-//  Created by scjy on 16/3/4.
+//  Created by scjy on 16/3/6.
 //  Copyright © 2016年 秦俊珍. All rights reserved.
 //
 
-#import "NewModel.h"
+#import "DiscoverModel.h"
 
-@implementation NewModel
-
+@implementation DiscoverModel
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
     if (self) {
@@ -18,9 +17,8 @@
         self.viewnum = dict[@"viewnum"];
         self.commentnum = dict[@"commentnum"];
         self.content = dict[@"content"];
-        self.category_id = dict[@"category_id"];
+        
     }
-    
     return self;
 }
 @end

@@ -7,13 +7,14 @@
 //
 
 #import "DiscoverViewController.h"
-#import "HeadCollectionReusableView.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "ProgressHUD.h"
 #import "PrefixHeader.pch"
 #import <CoreLocation/CoreLocation.h>
 #import "Header.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "StarTextViewController.h"
+
 
 static NSString *itemIntentfier = @"itemIdentifier";
 static NSString *headIndentfier = @"headIndentfier";
@@ -25,9 +26,11 @@ static NSString *headIndentfier = @"headIndentfier";
 
 @property (nonatomic, assign) BOOL refreshing;
 @property (nonatomic,retain) UICollectionView *collectionView;
-
+@property (nonatomic, strong) NSMutableArray *viewnumArray;
+@property (nonatomic, strong) NSMutableArray *commentnumArray;
 @property (nonatomic, strong) NSMutableArray *imageArray;
 @property (nonatomic, strong) NSMutableArray *titleArray;
+@property (nonatomic, strong) NSMutableArray *contentArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 
@@ -41,16 +44,35 @@ static NSString *headIndentfier = @"headIndentfier";
     //请求网络数据
     [self loadData];
     [self.view addSubview:self.collectionView];
-    
-    
 }
-
 
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewDidAppear:animated];
     [ProgressHUD dismiss];
 }
+
+#pragma mark ---------- 点击六个Button推出测试视图
+//点击六个Button推出测试视图
+- (void)pressBtnTypes:(PressButtonType)pressBtnType{
+    NSString *category_id = @"1";
+    if (pressBtnType == PressButtonTypeLove) {
+        category_id = @"1";
+    }else if (pressBtnType == PressButtonTypeCharacter){
+        category_id = @"2";
+    }else if (pressBtnType == PressButtonTypePower){
+        category_id = @"3";
+    }else if (pressBtnType == PressButtonTypeMember){
+        category_id = @"4";
+    }else if (pressBtnType == PressButtonTypeMajor){
+        category_id = @"5";
+    }
+    LoveViewController *loverVC = [[LoveViewController alloc] init];
+    loverVC.btnId = category_id;
+    [self.navigationController pushViewController:loverVC animated:YES];
+
+}
+
 
 //解析数据
 - (void)loadData{
@@ -66,6 +88,10 @@ static NSString *headIndentfier = @"headIndentfier";
         for (NSDictionary *dict in dataArray) {
             [self.imageArray addObject:dict[@"cover"]];
             [self.titleArray addObject:dict[@"title"]];
+            [self.viewnumArray addObject:dict[@"viewnum"]];
+            [self.commentnumArray addObject:dict[@"commentnum"]];
+            [self.contentArray addObject:dict[@"content"]];
+            
         }
         [self.collectionView reloadData];
         
@@ -100,6 +126,9 @@ static NSString *headIndentfier = @"headIndentfier";
     UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 160, 50)];
     titleLable.text = self.titleArray[indexPath.row];
     titleLable.backgroundColor = [UIColor whiteColor];
+    //设置字体大小
+    titleLable.font = [UIFont systemFontOfSize:15.0];
+    titleLable.numberOfLines = 0;
     [cell addSubview:image];
     [cell addSubview:titleLable];
     
@@ -110,8 +139,13 @@ static NSString *headIndentfier = @"headIndentfier";
 
 #pragma mark -------- 点击选择哪个图片
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
+    StarTextViewController *startTextVC = [[StarTextViewController alloc] init];
+    startTextVC.title = self.titleArray[indexPath.row];
+    startTextVC.image = self.imageArray[indexPath.row];
+    startTextVC.viewnum = self.viewnumArray[indexPath.row];
+    startTextVC.commentnum = self.commentnumArray[indexPath.row];
+    startTextVC.content = self.contentArray[indexPath.row];
+    [self.navigationController pushViewController:startTextVC animated:YES];
 }
 
 
@@ -122,9 +156,10 @@ static NSString *headIndentfier = @"headIndentfier";
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    //    if (kind == UICollectionElementKindSectionHeader) {
-    HeadCollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headIndentfier forIndexPath:indexPath];
     
+    HeadCollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headIndentfier forIndexPath:indexPath];
+    //添加的代理 （在初始化的地方添加）执行点击按钮然后去推出相应的页面
+    headView.delegate = self;
     return headView;
 }
 
@@ -140,7 +175,7 @@ static NSString *headIndentfier = @"headIndentfier";
         //        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
         //设置每一行间距
-        layout.minimumLineSpacing = 10;
+        layout.minimumLineSpacing = 0;
         //设置item间距
         layout.minimumInteritemSpacing = 0;
         //section的间距
@@ -184,6 +219,27 @@ static NSString *headIndentfier = @"headIndentfier";
         self.titleArray = [NSMutableArray new];
     }
     return _titleArray;
+}
+
+- (NSMutableArray *)viewnumArray{
+    if (_viewnumArray == nil) {
+        self.viewnumArray = [NSMutableArray new];
+    }
+    return _viewnumArray;
+}
+- (NSMutableArray *)commentnumArray{
+    if (_commentnumArray == nil) {
+        self.commentnumArray = [NSMutableArray new];
+    }
+    return _commentnumArray;
+    
+}
+- (NSMutableArray *)contentArray{
+    if (_contentArray == nil) {
+        self.contentArray = [NSMutableArray new];
+    }
+    return _contentArray;
+    
 }
 
 

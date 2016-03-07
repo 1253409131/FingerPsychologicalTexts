@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DiscoverViewController : UIViewController
+#import "HeadCollectionReusableView.h"
+
+#import "LoveViewController.h"
+#import "CharacterViewController.h"
+#import "PowerViewController.h"
+#import "MemmberViewController.h"
+#import "MajorViewController.h"
+#import "LikePlayViewController.h"
+//遵循代理
+@interface DiscoverViewController : UIViewController<PressBtnDelegate>
 
 @end

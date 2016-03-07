@@ -28,8 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //隐藏tabBar
-    self.tabBarController.tabBar.hidden = YES;
+   
     
 
     [self.startScrollView addSubview:self.viewnumLable];
@@ -110,12 +109,22 @@
 //点击按钮开始测试
 - (void)textBegin:(UIButton *)btn{
     
+    
     QJZLog(@"开始测试");
     
     
     
 }
-
+//当页面将要出现的时候隐藏tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+//当页面将要消失的时候出现tabBar
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 
 
 - (void)didReceiveMemoryWarning {
