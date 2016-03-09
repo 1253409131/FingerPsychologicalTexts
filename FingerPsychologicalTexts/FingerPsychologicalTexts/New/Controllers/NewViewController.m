@@ -40,7 +40,11 @@
 
 
 
-
+//当页面将要出现的时候隐藏tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark ---------- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.newsArray.count;
@@ -65,6 +69,8 @@
     starTextVC.commentnum = newModel.commentnum;
     starTextVC.image = newModel.image;
     starTextVC.content = newModel.content;
+    starTextVC.startId = newModel.aId;
+
     [self.navigationController pushViewController:starTextVC animated:YES];
 }
 

@@ -12,6 +12,8 @@
 #import "NewTableViewCell.h"
 #import "PrefixHeader.pch"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "TestViewController.h"
+#import "UIViewController+Common.h"
 @interface StarTextViewController ()
 @property (nonatomic, strong) UIScrollView *startScrollView;
 
@@ -29,18 +31,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    
-    
+    [self showBackButtonWithImage:@"back"];
 
+    [self.view addSubview:self.startScrollView];
     [self.startScrollView addSubview:self.viewnumLable];
     [self.startScrollView addSubview:self.commentnumLable];
     [self.startScrollView addSubview:self.imageView];
     [self.startScrollView addSubview:self.contentLable];
     [self.startScrollView addSubview:self.btn];
     [self.startScrollView addSubview:self.aLable];
-    [self.view addSubview:self.startScrollView];
+    
 }
 
 #pragma mark ----------- Lazy loadign
+//测试人数
 - (UILabel *)viewnumLable{
     if (_viewnumLable == nil) {
         self.viewnumLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 110, 44)];
@@ -51,15 +55,17 @@
     }
     return _viewnumLable;
 }
+//评论人数
 - (UILabel *)commentnumLable{
     if (_commentnumLable == nil) {
-        self.commentnumLable = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 70, 44)];
+        self.commentnumLable = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 70, 44)];
         self.commentnumLable.text = [NSString stringWithFormat:@"%@评论",self.commentnum];
         self.commentnumLable.font = [UIFont systemFontOfSize:14.0];
         self.commentnumLable.textColor = [UIColor  grayColor];
     }
     return _commentnumLable;
 }
+//图片
 - (UIImageView *)imageView{
     if (_imageView == nil) {
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 44, 355, 210)];
@@ -68,6 +74,7 @@
     }
     return _imageView;
 }
+//内容
 - (UILabel *)contentLable{
     if (_contentLable == nil) {
         self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 254, 355, 120)];
@@ -78,6 +85,7 @@
     }
     return _contentLable;
 }
+//点击 开始测试 按钮
 - (UIButton *)btn{
     if (_btn == nil) {
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -98,32 +106,35 @@
     }
     return _aLable;
 }
-
+//可以滑动效果
 - (UIScrollView *)startScrollView{
     if (_startScrollView == nil) {
         self.startScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+        //只有设置了contentSize才有滑动的效果
+        self.startScrollView.contentSize = CGSizeMake(kWidth, kHeight-64);
     }
     return _startScrollView;
 }
 
 //点击按钮开始测试
 - (void)textBegin:(UIButton *)btn{
+    TestViewController *testVC = [[TestViewController alloc] init];
+    
+    //给测试结果页面设置标题
+    testVC.title = self.title;
+    testVC.viewnum = self.viewnum;
+    testVC.commentnum = self.commentnum;
+    testVC.testId = self.startId;
+ 
+    [self.navigationController pushViewController:testVC animated:YES];
     
     
     QJZLog(@"开始测试");
-    
-    
-    
 }
 //当页面将要出现的时候隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-}
-//当页面将要消失的时候出现tabBar
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
 }
 
 

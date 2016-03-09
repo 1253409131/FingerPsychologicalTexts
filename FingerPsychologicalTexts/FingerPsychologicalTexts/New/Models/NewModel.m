@@ -18,7 +18,8 @@
         self.viewnum = dict[@"viewnum"];
         self.commentnum = dict[@"commentnum"];
         self.content = dict[@"content"];
-        self.category_id = dict[@"category_id"];
+        self.aId = dict[@"id"];
+        
     }
     
     return self;
