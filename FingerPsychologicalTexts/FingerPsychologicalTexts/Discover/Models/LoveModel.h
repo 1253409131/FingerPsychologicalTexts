@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString *commentnum;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *category;
-@property (nonatomic ,copy) NSString *category_id;
+@property (nonatomic ,copy) NSString *loveId;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

@@ -19,7 +19,7 @@
         self.commentnum = dict[@"commentnum"];
         self.content = dict[@"content"];
         self.category = dict[@"category"];
-        self.category_id = dict[@"category_id"];
+        self.loveId = dict[@"id"];
     }
     return self;
 }

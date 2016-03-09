@@ -14,6 +14,9 @@
 #import "PrefixHeader.pch"
 #import "Header.h"
 #import "StarTextViewController.h"
+#import "UIViewController+Common.h"
+#import "ZMYNetManager.h"
+#import "Reachability.h"
 @interface LoveViewController ()<UITableViewDelegate,UITableViewDataSource,PullingRefreshTableViewDelegate>
 {
     NSInteger _offset;//定义请求页码
@@ -37,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self showBackButtonWithImage:@"back"];
     if ([self.btnId isEqualToString:@"1"]) {
         self.title = @"爱情测试";
     }else if ([self.btnId isEqualToString:@"2"]){
@@ -79,7 +83,7 @@
     starTextVC.commentnum = loveModel.commentnum;
     starTextVC.image = loveModel.image;
     starTextVC.content = loveModel.content;
-    
+    starTextVC.startId = loveModel.loveId;
     [self.navigationController pushViewController:starTextVC animated:YES];
 
 }
@@ -106,6 +110,20 @@
 
 //加载数据
 - (void)loadData{
+    if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的网络有问题，请检查网络" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"确定");
+        }];
+        UIAlertAction *quxiao = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"取消");
+        }];
+        //
+        [alert addAction:action];
+        [alert addAction:quxiao];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [sessionManager GET:[NSString stringWithFormat:@"%@&category_id=%@&offset=%ld",kLove,_btnId, _offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -144,12 +162,7 @@
 //选择按钮六个
 - (void)showSelectButton{
     
-   
-    
-    
-    
-    
-    
+
 }
 
 

@@ -61,14 +61,15 @@ typedef enum : NSUInteger {
 //4.测你恋爱是有多投入？
 //http://bapi.xinli001.com/ceshi/questions.json/?key=3a4b2a12539a916c040d069ae8ac8310&ceshi_id=99897392
 
-//测试结果
+//测试问题
 #define kTest @"http://bapi.xinli001.com/ceshi/questions.json/?key=3a4b2a12539a916c040d069ae8ac8310"
 
 //http://bapi.xinli001.com/ceshi/questions.json/?key=3a4b2a12539a916c040d069ae8ac8310&ceshi_id=1836
 //http://bapi.xinli001.com/ceshi/questions.json/?key=3a4b2a12539a916c040d069ae8ac8310&ceshi_id=99897351
 
 
-
+//测试结果
+#define kResult @"http://bapi.xinli001.com/ceshi/result.json/"
 
 
 

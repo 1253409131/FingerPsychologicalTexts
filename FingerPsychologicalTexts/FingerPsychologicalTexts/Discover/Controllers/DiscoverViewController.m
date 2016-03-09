@@ -14,8 +14,8 @@
 #import "Header.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "StarTextViewController.h"
-
-
+#import "ZMYNetManager.h"
+#import "Reachability.h"
 static NSString *itemIntentfier = @"itemIdentifier";
 static NSString *headIndentfier = @"headIndentfier";
 
@@ -31,13 +31,10 @@ static NSString *headIndentfier = @"headIndentfier";
 @property (nonatomic, strong) NSMutableArray *imageArray;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *contentArray;
+@property (nonatomic, strong) NSMutableArray *discoverIdArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-
-
 @end
-
 @implementation DiscoverViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -45,8 +42,6 @@ static NSString *headIndentfier = @"headIndentfier";
     [self loadData];
     [self.view addSubview:self.collectionView];
 }
-
-
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewDidAppear:animated];
     [ProgressHUD dismiss];
@@ -70,19 +65,30 @@ static NSString *headIndentfier = @"headIndentfier";
     LoveViewController *loverVC = [[LoveViewController alloc] init];
     loverVC.btnId = category_id;
     [self.navigationController pushViewController:loverVC animated:YES];
-
 }
-
-
 //解析数据
 - (void)loadData{
+    if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的网络有问题，请检查网络" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"确定");
+        }];
+        UIAlertAction *quxiao = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"取消");
+        }];
+        //
+        [alert addAction:action];
+        [alert addAction:quxiao];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [sessionManager GET:[NSString stringWithFormat:@"%@&offset=%ld",kDiscover,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         QJZLog(@"downloadProgress = %@",downloadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         QJZLog(@"responseObject = %@",responseObject);
-        
+    
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"data"];
         for (NSDictionary *dict in dataArray) {
@@ -91,38 +97,28 @@ static NSString *headIndentfier = @"headIndentfier";
             [self.viewnumArray addObject:dict[@"viewnum"]];
             [self.commentnumArray addObject:dict[@"commentnum"]];
             [self.contentArray addObject:dict[@"content"]];
-            
+            [self.discoverIdArray addObject:dict[@"id"]];
         }
         [self.collectionView reloadData];
-        
-    
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         QJZLog(@"error = %@",error);
     }];
 }
-
 #pragma mark -------- UICollectionViewDataSource
 //返回的是item个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     QJZLog(@"self.imageArray.count = %ld",self.imageArray.count);
     return self.imageArray.count;
-    
-    
 }
-
 //返回1个分区
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"itemIdentifier" forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor redColor];
-    
     UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 100)];
     [image sd_setImageWithURL:[NSURL URLWithString:self.imageArray[indexPath.row]]placeholderImage:nil];
     image.backgroundColor = [UIColor whiteColor];
-
     UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 160, 50)];
     titleLable.text = self.titleArray[indexPath.row];
     titleLable.backgroundColor = [UIColor whiteColor];
@@ -131,7 +127,6 @@ static NSString *headIndentfier = @"headIndentfier";
     titleLable.numberOfLines = 0;
     [cell addSubview:image];
     [cell addSubview:titleLable];
-    
     return cell;
 }
 
@@ -145,6 +140,7 @@ static NSString *headIndentfier = @"headIndentfier";
     startTextVC.viewnum = self.viewnumArray[indexPath.row];
     startTextVC.commentnum = self.commentnumArray[indexPath.row];
     startTextVC.content = self.contentArray[indexPath.row];
+    startTextVC.startId = self.discoverIdArray[indexPath.row];
     [self.navigationController pushViewController:startTextVC animated:YES];
 }
 
@@ -239,9 +235,18 @@ static NSString *headIndentfier = @"headIndentfier";
         self.contentArray = [NSMutableArray new];
     }
     return _contentArray;
-    
 }
-
+- (NSMutableArray *)discoverIdArray{
+    if (_discoverIdArray == nil) {
+        self.discoverIdArray = [NSMutableArray new];
+    }
+    return _discoverIdArray;
+}
+//页面将要出现的时候出现tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

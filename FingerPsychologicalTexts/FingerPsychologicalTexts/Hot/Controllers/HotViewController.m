@@ -15,6 +15,8 @@
 #import "PrefixHeader.pch"
 #import "Header.h"
 #import "StarTextViewController.h"
+#import "ZMYNetManager.h"
+#import "Reachability.h"
 @interface HotViewController ()<UITableViewDelegate,UITableViewDataSource,PullingRefreshTableViewDelegate>
 {
     NSInteger _offset;//定义请求的页码
@@ -60,6 +62,7 @@
     startTextVC.commentnum = hotModel.commentnum;
     startTextVC.image = hotModel.image;
     startTextVC.content = hotModel.content;
+    startTextVC.startId = hotModel.hotId;
     [self.navigationController pushViewController:startTextVC animated:YES];
 }
 
@@ -88,6 +91,20 @@
 
 //加载数据
 - (void)loadData{
+    if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的网络有问题，请检查网络" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"确定");
+        }];
+        UIAlertAction *quxiao = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            QJZLog(@"取消");
+        }];
+        //
+        [alert addAction:action];
+        [alert addAction:quxiao];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [sessionManager GET:[NSString stringWithFormat:@"%@&offset=%ld",kHot,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -150,8 +167,11 @@
     }
     return _hotArray;
 }
-
-
+//页面将要出现的的时候出现tabBar
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

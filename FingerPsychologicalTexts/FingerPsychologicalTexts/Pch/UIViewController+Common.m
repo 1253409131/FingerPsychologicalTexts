@@ -24,5 +24,15 @@
 - (void)backButtonAction:(UIButton *)btn{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+//清扫手势
+- (void)swipebackAction{
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
+    recognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:recognizer];
+    
+}
+- (void)back{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 @end

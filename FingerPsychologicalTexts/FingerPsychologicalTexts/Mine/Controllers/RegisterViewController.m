@@ -7,9 +7,14 @@
 //
 
 #import "RegisterViewController.h"
+#import "PrefixHeader.pch"
+#import "UIViewController+Common.h"
+@interface RegisterViewController ()<UITextFieldDelegate>
 
-@interface RegisterViewController ()
-
+@property (nonatomic, strong) UITextField *nameTF;//昵称
+@property (nonatomic, strong) UITextField *emailTF;//邮箱
+@property (nonatomic, strong) UITextField *passwordTF;//密码
+@property (nonatomic, strong) UIButton *loginBtn;
 @end
 
 @implementation RegisterViewController
@@ -17,10 +22,85 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
+    [self showBackButtonWithImage:@"back"];
+    //密文显示：
+    self.passwordTF.secureTextEntry = YES;
     self.title = @"用户注册";
+    [self.view addSubview:self.nameTF];
+    [self.view addSubview:self.emailTF];
+    [self.view addSubview:self.passwordTF];
+    [self.view addSubview:self.loginBtn];
+    
 }
 
+#pragma mark ---------- Lazyloading
+- (UITextField *)nameTF{
+    if (_nameTF == nil) {
+        self.nameTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 84, 355, 60)];
+        self.nameTF.placeholder = @"昵称";
+        self.nameTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
+        self.nameTF.backgroundColor = [UIColor whiteColor];
+        self.nameTF.layer.cornerRadius = 5;
+    }
+    return _nameTF;
+}
+- (UITextField *)emailTF{
+    if (_emailTF == nil) {
+        self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 145, 355, 60)];
+        self.emailTF.placeholder = @"邮箱";
+        self.emailTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
+        self.emailTF.backgroundColor = [UIColor whiteColor];
+        //圆角
+        self.emailTF.layer.cornerRadius = 5;
+    }
+    return _emailTF;
+}
+
+- (UITextField *)passwordTF{
+    if (_passwordTF == nil) {
+        self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 206, 355, 60)];
+        self.passwordTF.placeholder = @"密码";
+        self.passwordTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
+        self.passwordTF.backgroundColor = [UIColor whiteColor];
+        //圆角
+        self.passwordTF.layer.cornerRadius = 5;
+    }
+    return _passwordTF;
+}
+
+
+- (UIButton *)loginBtn{
+    if (_loginBtn == nil) {
+        self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.loginBtn.frame = CGRectMake(10, 350, 355, 44);
+        [self.loginBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.loginBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
+        self.loginBtn.layer.cornerRadius = 5;
+        [self.loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _loginBtn;
+}
+
+- (void)login{
+    QJZLog(@"登录");
+}
+#pragma mark ------------ UITextFieldDelegate
+//点击右下角回收键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+//点击空白处回收键盘
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

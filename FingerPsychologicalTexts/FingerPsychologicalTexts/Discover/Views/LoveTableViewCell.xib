@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,31 +15,49 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="279"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JaH-L1-04j">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JaH-L1-04j">
                         <rect key="frame" x="15" y="0.0" width="345" height="210"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="51453人测过" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-Cy-xpC">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="51453人测过" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-Cy-xpC">
                         <rect key="frame" x="15" y="255" width="116" height="24"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="32评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLv-F5-I5n">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="32评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLv-F5-I5n">
                         <rect key="frame" x="129" y="255" width="116" height="24"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="恋爱中你的情商有多高？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4TQ-IB-EkS">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="恋爱中你的情商有多高？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4TQ-IB-EkS">
                         <rect key="frame" x="15" y="211" width="345" height="42"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="4E6-Cy-xpC" firstAttribute="top" secondItem="4TQ-IB-EkS" secondAttribute="bottom" constant="2" id="7O5-DA-m60"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4E6-Cy-xpC" secondAttribute="bottom" constant="-8" id="9lA-41-x6g"/>
+                    <constraint firstItem="4TQ-IB-EkS" firstAttribute="top" secondItem="JaH-L1-04j" secondAttribute="bottom" constant="1" id="Lhw-Te-Ngz"/>
+                    <constraint firstItem="JaH-L1-04j" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="NkP-qz-tge"/>
+                    <constraint firstItem="pLv-F5-I5n" firstAttribute="top" secondItem="4TQ-IB-EkS" secondAttribute="bottom" constant="2" id="Nlb-Iv-aKn"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JaH-L1-04j" secondAttribute="trailing" constant="7" id="TeA-z6-zfv"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="4E6-Cy-xpC" secondAttribute="trailing" constant="236" id="ThH-ya-gPj"/>
+                    <constraint firstItem="4TQ-IB-EkS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="VSs-hV-q3O"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="4TQ-IB-EkS" secondAttribute="trailing" constant="7" id="XZ2-LC-dcx"/>
+                    <constraint firstItem="4E6-Cy-xpC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="YG0-Rm-OtA"/>
+                    <constraint firstItem="4TQ-IB-EkS" firstAttribute="top" secondItem="JaH-L1-04j" secondAttribute="bottom" constant="1" id="dvU-JH-puB"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="pLv-F5-I5n" secondAttribute="bottom" constant="-8" id="l2u-hl-hp1"/>
+                    <constraint firstItem="JaH-L1-04j" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="lhi-02-sNs"/>
+                    <constraint firstItem="pLv-F5-I5n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="121" id="qqW-rD-ubk"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="pLv-F5-I5n" secondAttribute="trailing" constant="122" id="vPw-rP-GE9"/>
+                    <constraint firstItem="pLv-F5-I5n" firstAttribute="top" secondItem="4TQ-IB-EkS" secondAttribute="bottom" constant="2" id="zc2-9P-Awf"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentnumLable" destination="pLv-F5-I5n" id="AJJ-6M-nCG"/>

@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-
+#import "UIViewController+Common.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *emailTF;
 @property (nonatomic, strong) UITextField *passwordTF;
@@ -20,8 +20,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
+    [self showBackButtonWithImage:@"back"];
     self.title = @"用户登录";
-    
+    //密文显示：
+    self.passwordTF.secureTextEntry = YES;
     [self.view addSubview:self.emailTF];
     [self.view addSubview:self.passwordTF];
     [self.view addSubview:self.loginBtn];
@@ -32,7 +34,7 @@
 
 - (UITextField *)emailTF{
     if (_emailTF == nil) {
-        self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 84, 355, 88)];
+        self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 84, 355, 66)];
         self.emailTF.placeholder = @"邮箱";
         self.emailTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
         self.emailTF.backgroundColor = [UIColor whiteColor];
@@ -45,7 +47,7 @@
 
 - (UITextField *)passwordTF{
     if (_passwordTF == nil) {
-        self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 173, 355, 88)];
+        self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 155, 355, 66)];
         self.passwordTF.placeholder = @"密码";
         self.passwordTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
         self.passwordTF.backgroundColor = [UIColor whiteColor];
@@ -57,7 +59,7 @@
 - (UIButton *)loginBtn{
     if (_loginBtn == nil) {
         self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.loginBtn.frame = CGRectMake(10, 350, 355, 44);
+        self.loginBtn.frame = CGRectMake(10, 300, 355, 44);
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.loginBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
@@ -65,19 +67,20 @@
     }
     return _loginBtn;
 }
-
-
 #pragma mark ------------ UITextFieldDelegate
 //点击右下角回收键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
-    return YES;
+    return true;
 }
 //点击空白处回收键盘
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

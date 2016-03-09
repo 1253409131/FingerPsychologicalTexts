@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *viewnum;//测试人数
 @property (nonatomic, copy) NSString *commentnum;//评论人数
 @property (nonatomic, copy) NSString *content;//内容
-@property (nonatomic, copy) NSString *category_id;
+@property (nonatomic, copy) NSString *hotId;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
