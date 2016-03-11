@@ -15,4 +15,5 @@
 @property (nonatomic, copy) NSString *content;
 
 @property (nonatomic, copy) NSString *testId;
+@property (nonatomic, copy) NSMutableArray *choicesIdArray;
 @end

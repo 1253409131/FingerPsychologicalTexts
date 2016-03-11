@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "LoginViewController.h"
 #import "UIViewController+Common.h"
+#import "PrefixHeader.pch"
 @interface SettingViewController ()
 @property (nonatomic,strong) UIButton *aBtn;
 @property (nonatomic,strong) UIButton *ideaBtn;
@@ -31,7 +32,7 @@
 - (UIButton *)aBtn{
     if (_aBtn == nil) {
         self.aBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.aBtn.frame = CGRectMake(10, 100, 355, 44);
+        self.aBtn.frame = CGRectMake(10, 100, kWidth-20, 44);
         [self.aBtn setTitle:@"立即登录" forState:UIControlStateNormal];
         [self.aBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.aBtn.backgroundColor = [UIColor whiteColor];
@@ -44,7 +45,7 @@
 - (UIButton *)ideaBtn{
     if (_ideaBtn == nil) {
         self.ideaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.ideaBtn.frame = CGRectMake(10, 150, 355, 44);
+        self.ideaBtn.frame = CGRectMake(10, 150, kWidth-20, 44);
         [self.ideaBtn setTitle:@"反馈意见" forState:UIControlStateNormal];
         [self.ideaBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.ideaBtn.backgroundColor = [UIColor whiteColor];
@@ -57,7 +58,7 @@
 - (UIButton *)testBtn{
     if (_testBtn == nil) {
         self.testBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.testBtn.frame = CGRectMake(10, 200, 355, 44);
+        self.testBtn.frame = CGRectMake(10, 200, kWidth-20, 44);
         [self.testBtn setTitle:@"检测最新版本" forState:UIControlStateNormal];
         [self.testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.testBtn.backgroundColor = [UIColor whiteColor];
@@ -91,7 +92,6 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -7,7 +7,6 @@
 //
 
 #import "TestModel.h"
-
 @implementation TestModel
 
 - (instancetype)initWithContentDictionary:(NSDictionary *)dic {
@@ -15,7 +14,6 @@
     if (self) {
         self.title = dic[@"title"];
         self.ceshi_id = dic[@"ceshi_id"];
-        
         NSArray *choicesArray = dic[@"choices"];
         if (choicesArray.count >= 1) {
             NSDictionary *dict1 = choicesArray[0];

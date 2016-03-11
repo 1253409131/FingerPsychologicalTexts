@@ -17,27 +17,38 @@
 #import "ResultViewController.h"
 #import "ZMYNetManager.h"
 #import "Reachability.h"
+#import "TestModel.h"
 @interface TestViewController ()
 {
     NSInteger currentNum;
+    CGFloat a;
+    NSInteger btncount;
 }
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UIScrollView *textScrollView;
 @property (nonatomic, strong) UILabel *viewnumLable;
 @property (nonatomic, strong) UILabel *commentnumLable;
 @property (nonatomic, strong) UIProgressView *testProgressView;//进度条
+//监控选择按钮进度
+@property(nonatomic, retain) NSTimer *timer;
 @property (nonatomic, strong) UILabel *jinduLable;
 @property (nonatomic, strong) UILabel *titleLable;
 @property (nonatomic, strong) UIButton *btn1;
 @property (nonatomic, strong) UIButton *btn2;
 @property (nonatomic, strong) UIButton *btn3;
 @property (nonatomic, strong) NSMutableArray *testArray;
-@property (nonatomic, strong) UIButton *submitBtn;//提交按钮
+@property (nonatomic, strong) NSMutableArray *choicesArray;//选择按钮
+@property (nonatomic, strong) NSMutableArray *choicesIdArray;//选择项的Id;
+@property (nonatomic, strong) NSMutableArray *ceshiIdArray;//选择项的Id;
+@property (nonatomic, strong) NSMutableArray *qinArray;//选择项的Id;
+
 @end
 @implementation TestViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    a = 0.1;
+    btncount = 0;
     [self loadData];
     self.view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
     [self showBackButtonWithImage:@"back"];
@@ -48,11 +59,8 @@
     [self.textScrollView addSubview:self.testProgressView];
     [self.textScrollView addSubview:self.jinduLable];
     [self.textScrollView addSubview:self.titleLable];
-    [self.textScrollView addSubview:self.btn1];
-    [self.textScrollView addSubview:self.btn2];
-    [self.textScrollView addSubview:self.btn3];
-    [self.textScrollView addSubview:self.submitBtn];
-    currentNum = 1;
+    
+    currentNum = 0;
 }
 - (void)loadData{
     if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
@@ -63,12 +71,11 @@
         UIAlertAction *quxiao = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             QJZLog(@"取消");
         }];
-        //
         [alert addAction:action];
         [alert addAction:quxiao];
         [self presentViewController:alert animated:YES completion:nil];
     }
-
+    
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     NSString *url = [NSString stringWithFormat:@"%@&ceshi_id=%@",kTest,self.testId];
     QJZLog(@"----------%@",url);
@@ -80,21 +87,36 @@
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"data"];
         for (NSDictionary *dict in dataArray) {
+            NSArray *array = dict[@"choices"];
+            [self.choicesArray addObject:array];
             TestModel *testModel = [[TestModel alloc] initWithContentDictionary:dict];
+            NSLog(@"array = %ld", array.count);
+            NSMutableArray *ceshiarray = [NSMutableArray new];
+            for (NSDictionary *dicct in array) {
+                NSString *idstring = dicct[@"id"];
+                [ceshiarray addObject:idstring];
+                NSLog(@"%@", self.choicesIdArray);
+            }
+            [self.choicesIdArray addObject:ceshiarray];
             [self.testArray addObject:testModel];
+            for (int i = 0; i < self.choicesArray.count; i++) {
+                if ([self.choicesArray[i] count] < 3) {
+                    [self.textScrollView addSubview:self.btn1];
+                    [self.textScrollView addSubview:self.btn2];
+                    
+                }else{
+                    [self.textScrollView addSubview:self.btn1];
+                    [self.textScrollView addSubview:self.btn2];
+                    [self.textScrollView addSubview:self.btn3];
+                }
+            }
         }
         //得到数据之后重新给界面控件添加值
         [self configViewWithTestModel:self.testArray[currentNum]];
+        NSLog(@"self.choicesIdArray =======%@", self.choicesIdArray);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         QJZLog(@"error = %@",error);
     }];
-}
-- (void)touch{
-    //不管点哪个按钮,创建一个全局的变量记录当前是第几个测试，默认是0
-    if (currentNum <= self.testArray.count) {
-        currentNum += 1;
-    }
-    [self configViewWithTestModel:self.testArray[currentNum]];
 }
 - (void)configViewWithTestModel:(TestModel *)testModel {
     self.titleLable.text = testModel.title;
@@ -139,13 +161,12 @@
     }
     return _commentnumLable;
 }
-//进度条
-- (UIProgressView *)testProgressView{
-    if (_testProgressView == nil) {
-        self.testProgressView = [[UIProgressView alloc] initWithFrame:CGRectMake(120, 88, kWidth-130, 44)];
-        
+//用NSTimer监控进度
+- (NSTimer *)timer{
+    if (_timer == nil) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(selectBtn:) userInfo:nil repeats:YES];
     }
-    return _testProgressView;
+    return _timer;
 }
 //进度：
 - (UILabel *)jinduLable{
@@ -157,6 +178,7 @@
     }
     return _jinduLable;
 }
+
 - (UILabel *)titleLable{
     if (_titleLable == nil) {
         self.titleLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, kWidth - 20, 100)];
@@ -173,6 +195,9 @@
         self.btn1.frame = CGRectMake(10, 245, kWidth - 20, 44);
         self.btn1.backgroundColor = [UIColor whiteColor];
         self.btn1.layer.cornerRadius = 5;
+        [self.btn1 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [self.btn1 setTitle:@"btn1" forState:UIControlStateNormal];
+        self.btn1.font = [UIFont systemFontOfSize:15.0];
         [self.btn1 addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
         self.btn1.tag = 1;
     }
@@ -184,6 +209,9 @@
         self.btn2.frame = CGRectMake(10, 290, kWidth - 20, 44);
         self.btn2.backgroundColor = [UIColor whiteColor];
         self.btn2.layer.cornerRadius = 5;
+        [self.btn2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        self.btn2.font = [UIFont systemFontOfSize:15.0];
+        [self.btn2 setTitle:@"btn2" forState:UIControlStateNormal];
         [self.btn2 addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
         self.btn2.tag = 2;
     }
@@ -195,6 +223,9 @@
         self.btn3.frame = CGRectMake(10, 335, kWidth - 20, 44);
         self.btn3.backgroundColor = [UIColor whiteColor];
         self.btn3.layer.cornerRadius = 5;
+        [self.btn3 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [self.btn3 setTitle:@"btn3" forState:UIControlStateNormal];
+        self.btn3.font = [UIFont systemFontOfSize:15.0];
         [self.btn3 addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
         self.btn3.tag = 3;
     }
@@ -206,39 +237,120 @@
     }
     return _testArray;
 }
+//进度条
+- (UIProgressView *)testProgressView{
+    if (_testProgressView == nil) {
+        //创建进度条实例
+        self.testProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        
+        //设置进度条大小
+        self.testProgressView.frame = CGRectMake(120, 88, kWidth-130, 44);
+        //设置进度条进度的颜色
+        self.testProgressView.progressTintColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
+    }
+    return _testProgressView;
+}
 - (void)selectBtn:(UIButton *)btn{
-    switch (btn.tag) {
+    if (btncount < self.choicesIdArray.count) {
+        self.qinArray = self.choicesIdArray[btncount];
+        ;
+    }
+       switch (btn.tag) {
         case 1:
         {
+            //不管点哪个按钮,创建一个全局的变量记录当前是第几个测试，默认是0
+            if (currentNum < self.testArray.count - 1) {
+                currentNum += 1;
+                //设置进度
+                if (self.testArray.count == 0) {
+                    a = currentNum / 1;
+                }else{
+                    a = (float)currentNum / self.testArray.count;
+                }
+                
+                [self.ceshiIdArray addObject:self.qinArray[0]];
+                [self configViewWithTestModel:self.testArray[currentNum]];
+               
+            }else{
+                [self submitBtn];
+            }
             
+           
             
         }
+            
             break;
-        case 2:{
+        case 2:
+        {
+            //不管点哪个按钮,创建一个全局的变量记录当前是第几个测试，默认是0
+            if (currentNum < self.testArray.count - 1) {
+                currentNum += 1;
+                //设置进度
+                if (self.testArray.count == 0) {
+                    a = currentNum / 1;
+                }else{
+                    a = (float)currentNum / self.testArray.count;
+                    
+                }
+                [self.ceshiIdArray addObject:self.qinArray[1]];
+                [self configViewWithTestModel:self.testArray[currentNum]];
+                
+            }else{
+                [self submitBtn];
+                
+            }
             
         }
             break;
         case 3:{
+            //不管点哪个按钮,创建一个全局的变量记录当前是第几个测试，默认是0
+            if (currentNum < self.testArray.count - 1) {
+                currentNum += 1;
+                //设置进度
+                if (self.testArray.count == 0) {
+                    a = currentNum / 1;
+                }else{
+                    a = (float)currentNum / self.testArray.count;
+                }
+                [self.ceshiIdArray addObject:self.qinArray[2]];
+                [self configViewWithTestModel:self.testArray[currentNum]];
+                
+            }else{
+                [self submitBtn];
+            }
             
         }
             break;
         default:
             break;
     }
+    self.testProgressView.progress = a;
+    btncount++;
+}
+//选择按钮数组
+- (NSMutableArray *)choicesArray{
+    if ( _choicesArray == nil) {
+        self.choicesArray = [NSMutableArray new];
+    }
+    return _choicesArray;
 }
 //提交按钮
-- (UIButton *)submitBtn{
-    if (_submitBtn == nil) {
-        self.submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.submitBtn.frame = CGRectMake(300, 385, 44, 40);
-        self.submitBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
-        [self.submitBtn setTitle:@"提交" forState:UIControlStateNormal];
-        [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.submitBtn addTarget:self action:@selector(result) forControlEvents:UIControlEventTouchUpInside];
-        self.submitBtn.layer.cornerRadius = 5;
-        self.submitBtn.font = [UIFont systemFontOfSize:14.0];
+- (void)submitBtn{
+        UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    for (int i = 0; i < self.choicesArray.count; i++) {
+        if ([self.choicesArray[i] count] < 3) {
+            submitBtn.frame = CGRectMake(300, 345, 44, 40);
+        }else{
+           submitBtn.frame = CGRectMake(300, 385, 44, 40);
+        }
     }
-    return _submitBtn;
+        submitBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
+        [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [submitBtn addTarget:self action:@selector(result) forControlEvents:UIControlEventTouchUpInside];
+        submitBtn.layer.cornerRadius = 5;
+        submitBtn.font = [UIFont systemFontOfSize:14.0];
+        [self.textScrollView addSubview:submitBtn];
 }
 
 - (void)result{
@@ -248,10 +360,30 @@
     resultVC.viewnum = self.viewnum;
     resultVC.commentnum = self.commentnum;
     resultVC.testId = self.testId;
+    resultVC.choicesIdArray = self.ceshiIdArray;
+    NSLog(@"self.ceshiIdArray = %@", self.ceshiIdArray);
     [self.navigationController pushViewController:resultVC animated:YES];
-    
 }
-
+//选择项的Id
+- (NSMutableArray *)choicesIdArray{
+    if (_choicesIdArray == nil) {
+        self.choicesIdArray = [NSMutableArray new];
+    }
+    return _choicesIdArray;
+}
+- (NSMutableArray *)ceshiIdArray{
+    
+    if (_ceshiIdArray == nil) {
+        self.ceshiIdArray = [NSMutableArray new];
+    }
+    return _ceshiIdArray;
+}
+- (NSMutableArray *)qinArray{
+    if (_qinArray == nil) {
+        self.qinArray = [NSMutableArray alloc];
+    }
+    return _qinArray;
+}
 //当页面将要出现的时候隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -11,6 +11,9 @@
 #import "HotViewController.h"
 #import "DiscoverViewController.h"
 #import "MineViewController.h"
+#import <BmobSDK/Bmob.h>
+#import "PrefixHeader.pch"
+#import "Header.h"
 @interface AppDelegate ()
 
 @end
@@ -21,6 +24,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    [Bmob registerWithAppKey:kBmobAppkey];
     
     //UITableBarController
     UITabBarController *tableBarVC = [[UITabBarController alloc] init];

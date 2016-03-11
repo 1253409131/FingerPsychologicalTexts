@@ -8,7 +8,10 @@
 
 #import "LoginViewController.h"
 #import "UIViewController+Common.h"
-@interface LoginViewController ()<UITextFieldDelegate>
+#import <BmobSDK/Bmob.h>
+#import "PrefixHeader.pch"
+#import "ProgressHUD.h"
+@interface LoginViewController ()<UITextFieldDelegate,BmobEventDelegate>
 @property (nonatomic, strong) UITextField *emailTF;
 @property (nonatomic, strong) UITextField *passwordTF;
 @property (nonatomic, strong) UIButton *loginBtn;
@@ -34,7 +37,7 @@
 
 - (UITextField *)emailTF{
     if (_emailTF == nil) {
-        self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 84, 355, 66)];
+        self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 84, kWidth-20, 66)];
         self.emailTF.placeholder = @"邮箱";
         self.emailTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
         self.emailTF.backgroundColor = [UIColor whiteColor];
@@ -47,7 +50,7 @@
 
 - (UITextField *)passwordTF{
     if (_passwordTF == nil) {
-        self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 155, 355, 66)];
+        self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(10, 155, kWidth-20, 66)];
         self.passwordTF.placeholder = @"密码";
         self.passwordTF.textColor = [UIColor colorWithRed:195/255.0 green:195/255.0 blue:195/255.0 alpha:1.0];
         self.passwordTF.backgroundColor = [UIColor whiteColor];
@@ -59,14 +62,27 @@
 - (UIButton *)loginBtn{
     if (_loginBtn == nil) {
         self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.loginBtn.frame = CGRectMake(10, 300, 355, 44);
+        self.loginBtn.frame = CGRectMake(10, 300, kWidth-20, 44);
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.loginBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
         self.loginBtn.layer.cornerRadius = 5;
+        [self.loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginBtn;
 }
+
+- (void)loginAction{
+    [BmobUser loginWithUsernameInBackground:self.emailTF.text password:self.passwordTF.text block:^(BmobUser *user, NSError *error) {
+        if (user) {
+            QJZLog(@"user = %@",user);
+            [ProgressHUD showSuccess:@"登陆成功"];
+        }else{
+            [ProgressHUD showError:@"登录失败"];
+        }
+    }];
+}
+
 #pragma mark ------------ UITextFieldDelegate
 //点击右下角回收键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

@@ -13,7 +13,6 @@
 @property (nonatomic, copy) NSString *commentnum;
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *content;
-
 @property (nonatomic, copy) NSString *testId;
 
 @end

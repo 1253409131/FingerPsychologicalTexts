@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *title;   //测试问题
 @property (nonatomic, copy) NSString *ceshi_id;//测试Id
+@property (nonatomic, copy) NSString *choicesId;
 @property (nonatomic, copy) NSString *firstChoices; //测试第一个选项
 @property (nonatomic, copy) NSString *firstId;//第一个选项的Id
 @property (nonatomic, copy) NSString *secondChoices;//第二个选项

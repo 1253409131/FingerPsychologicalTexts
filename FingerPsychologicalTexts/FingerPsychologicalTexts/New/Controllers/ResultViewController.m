@@ -21,6 +21,9 @@
 @property (nonatomic, strong) UILabel *resultLable;
 @property (nonatomic, strong) UILabel *contentLable;
 @property (nonatomic, strong) NSMutableArray *allIdArray;
+@property (nonatomic, strong) NSMutableDictionary *choicesDic;
+@property(nonatomic, strong) NSString *idsrting;
+
 
 @end
 
@@ -30,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor yellowColor];
-    [self loadData];
+    
     self.view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
     [self showBackButtonWithImage:@"back"];
     [self.view addSubview:self.textScrollView];
@@ -38,9 +41,31 @@
     [self.textScrollView addSubview:self.commentnumLable];
     [self.textScrollView addSubview:self.resultLable];
     [self.textScrollView addSubview:self.contentLable];
+    NSLog(@"self.choicesIdArray = %@", self.choicesIdArray);
+    [self.choicesDic setValue:@"key" forKey:@"3a4b2a12539a916c040d069ae8ac8310"];
+     [self.choicesDic setValue:@"ceshi_id" forKey:self.testId];
+    for (int i = 0; i < self.choicesIdArray.count
+         ; i++) {
+        [self.choicesDic setValue:@"choice" forKey:self.choicesIdArray[i]];
+    }
+    NSLog(@"%@", self.choicesDic);
+    
+    [self loadData];
 }
-//@"choice":@"6333",@"choice":@"6338",@"choice":@"6339",@"choice":@"6347",@"choice":@"6354",@"choice":@"6364"
+//@{@"key":@"3a4b2a12539a916c040d069ae8ac8310",@"ceshi_id":self.testId,@"choice":@"6333",@"choice":@"6338",@"choice":@"6339",@"choice":@"6347",@"choice":@"6354",@"choice":@"6364"}
+
+
+
 - (void)loadData{
+//    for (int i = 0; i < self.choicesIdArray.count; i++) {
+//        NSString *str = [NSString stringWithFormat:@"choice=%@", self.choicesIdArray[i]];
+//        NSLog(@"%@", str);
+//        self.idsrting = [self.idsrting stringByAppendingString:str];
+//        
+//    }
+//    
+//    NSLog(@"%@", self.idsrting);
+    
     if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的网络有问题，请检查网络" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -56,8 +81,8 @@
     }
 
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
-    sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [sessionManager POST:kResult parameters:@{@"key":@"3a4b2a12539a916c040d069ae8ac8310",@"ceshi_id":self.testId} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html; charset=utf-8"];
+    [sessionManager POST:kResult parameters:self.choicesDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         QJZLog(@"uploadProgress = %@",uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -128,6 +153,13 @@
     }
     return _allIdArray;
 }
+- (NSMutableDictionary *)choicesDic{
+    if (_choicesDic == nil) {
+        self.choicesDic = [NSMutableDictionary new];
+    }
+    return _choicesDic;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

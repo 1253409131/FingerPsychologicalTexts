@@ -68,7 +68,7 @@
 //图片
 - (UIImageView *)imageView{
     if (_imageView == nil) {
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 44, 355, 210)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 44, kWidth-20, kWidth-165)];
         self.imageView.backgroundColor = [UIColor cyanColor];
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.image] placeholderImage:nil];
     }
@@ -77,7 +77,7 @@
 //内容
 - (UILabel *)contentLable{
     if (_contentLable == nil) {
-        self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 254, 355, 120)];
+        self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 254, kWidth-20, kWidth-255)];
         self.contentLable.text = self.content;
         self.contentLable.numberOfLines = 0;
         self.contentLable.font = [UIFont systemFontOfSize:15.0];
@@ -89,7 +89,7 @@
 - (UIButton *)btn{
     if (_btn == nil) {
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.btn.frame = CGRectMake(140, 390, 100, 44);
+        self.btn.frame = CGRectMake(140, 390, kWidth-275, 44);
         self.btn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
         [self.btn setTitle:@"开始测试" forState:UIControlStateNormal];
         [self.btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -99,7 +99,7 @@
 }
 - (UILabel *)aLable{
     if (_aLable == nil) {
-        self.aLable = [[UILabel alloc] initWithFrame:CGRectMake(100, 430, 190, 44)];
+        self.aLable = [[UILabel alloc] initWithFrame:CGRectMake(100, 430, kWidth-185, 44)];
         self.aLable.text = @"此测试仅供娱乐，不做专业指导";
         self.aLable.font = [UIFont systemFontOfSize:13.0];
         self.aLable.textColor = [UIColor  grayColor];

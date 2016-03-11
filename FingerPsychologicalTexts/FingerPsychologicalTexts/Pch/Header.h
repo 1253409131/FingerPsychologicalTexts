@@ -22,6 +22,7 @@ typedef enum : NSUInteger {
 
 
 
+
 //最新：
 #define kNew @"http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=0&rows=10&key=3a4b2a12539a916c040d069ae8ac8310&offset=0&rmd=-1"
 
@@ -71,6 +72,8 @@ typedef enum : NSUInteger {
 //测试结果
 #define kResult @"http://bapi.xinli001.com/ceshi/result.json/"
 
+//bmob
+#define kBmobAppkey @"51cbc991eb4693953aa76cb7330c5c4c"
 
 
 
