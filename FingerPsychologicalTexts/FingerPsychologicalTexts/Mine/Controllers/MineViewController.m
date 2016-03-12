@@ -10,38 +10,29 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "SettingViewController.h"
+#import "PrefixHeader.pch"
 @interface MineViewController ()
-
 @end
-
 @implementation MineViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-   
 }
-
-- (IBAction)loginBtn:(id)sender {
+//登录按钮实现的方法
+- (IBAction)loginAction:(id)sender {
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     [self.navigationController pushViewController:loginVC animated:YES];
-    
 }
-
-
-- (IBAction)registerBtn:(id)sender {
+//注册按钮实现的方法
+- (IBAction)registerAction:(id)sender {
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
-    
 }
-
-
-- (IBAction)settingBtn:(id)sender {
+//设置按钮实现的方法
+- (IBAction)settingAction:(id)sender {
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     [self.navigationController pushViewController:settingVC animated:YES];
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;

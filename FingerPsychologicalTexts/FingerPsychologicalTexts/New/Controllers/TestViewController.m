@@ -41,7 +41,6 @@
 @property (nonatomic, strong) NSMutableArray *choicesIdArray;//选择项的Id;
 @property (nonatomic, strong) NSMutableArray *ceshiIdArray;//选择项的Id;
 @property (nonatomic, strong) NSMutableArray *qinArray;//选择项的Id;
-
 @end
 @implementation TestViewController
 - (void)viewDidLoad {
@@ -75,7 +74,6 @@
         [alert addAction:quxiao];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     NSString *url = [NSString stringWithFormat:@"%@&ceshi_id=%@",kTest,self.testId];
     QJZLog(@"----------%@",url);
@@ -242,7 +240,6 @@
     if (_testProgressView == nil) {
         //创建进度条实例
         self.testProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        
         //设置进度条大小
         self.testProgressView.frame = CGRectMake(120, 88, kWidth-130, 44);
         //设置进度条进度的颜色
@@ -274,11 +271,7 @@
             }else{
                 [self submitBtn];
             }
-            
-           
-            
         }
-            
             break;
         case 2:
         {
@@ -290,16 +283,12 @@
                     a = currentNum / 1;
                 }else{
                     a = (float)currentNum / self.testArray.count;
-                    
                 }
                 [self.ceshiIdArray addObject:self.qinArray[1]];
                 [self configViewWithTestModel:self.testArray[currentNum]];
-                
             }else{
                 [self submitBtn];
-                
             }
-            
         }
             break;
         case 3:{
@@ -318,7 +307,6 @@
             }else{
                 [self submitBtn];
             }
-            
         }
             break;
         default:
@@ -339,9 +327,9 @@
         UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     for (int i = 0; i < self.choicesArray.count; i++) {
         if ([self.choicesArray[i] count] < 3) {
-            submitBtn.frame = CGRectMake(300, 345, 44, 40);
+            submitBtn.frame = CGRectMake(kWidth-75, kWidth+18, 44, 40);
         }else{
-           submitBtn.frame = CGRectMake(300, 385, 44, 40);
+           submitBtn.frame = CGRectMake(kWidth-75, kWidth+63, 44, 40);
         }
     }
         submitBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
@@ -352,7 +340,6 @@
         submitBtn.font = [UIFont systemFontOfSize:14.0];
         [self.textScrollView addSubview:submitBtn];
 }
-
 - (void)result{
     ResultViewController *resultVC = [[ResultViewController alloc] init];
     //给测试结果页面设置标题

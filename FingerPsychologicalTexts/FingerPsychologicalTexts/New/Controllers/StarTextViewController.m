@@ -77,7 +77,7 @@
 //内容
 - (UILabel *)contentLable{
     if (_contentLable == nil) {
-        self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 254, kWidth-20, kWidth-255)];
+        self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth-121, kWidth-20, kWidth-200)];
         self.contentLable.text = self.content;
         self.contentLable.numberOfLines = 0;
         self.contentLable.font = [UIFont systemFontOfSize:15.0];
@@ -89,9 +89,10 @@
 - (UIButton *)btn{
     if (_btn == nil) {
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.btn.frame = CGRectMake(140, 390, kWidth-275, 44);
+        self.btn.frame = CGRectMake(kWidth/3, kWidth+60, kWidth/3, 44);
         self.btn.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
         [self.btn setTitle:@"开始测试" forState:UIControlStateNormal];
+        self.btn.layer.cornerRadius = 5;
         [self.btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.btn addTarget:self action:@selector(textBegin:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -99,7 +100,8 @@
 }
 - (UILabel *)aLable{
     if (_aLable == nil) {
-        self.aLable = [[UILabel alloc] initWithFrame:CGRectMake(100, 430, kWidth-185, 44)];
+        self.aLable = [[UILabel alloc] initWithFrame:CGRectMake(0, kWidth+100, kWidth, 44)];
+        self.aLable.textAlignment = NSTextAlignmentCenter;
         self.aLable.text = @"此测试仅供娱乐，不做专业指导";
         self.aLable.font = [UIFont systemFontOfSize:13.0];
         self.aLable.textColor = [UIColor  grayColor];

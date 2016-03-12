@@ -107,7 +107,7 @@ static NSString *headIndentfier = @"headIndentfier";
 #pragma mark -------- UICollectionViewDataSource
 //返回的是item个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    QJZLog(@"self.imageArray.count = %ld",self.imageArray.count);
+    QJZLog(@"self.imageArray.count = %ld",(unsigned long)self.imageArray.count);
     return self.imageArray.count;
 }
 //返回1个分区
@@ -129,9 +129,6 @@ static NSString *headIndentfier = @"headIndentfier";
     [cell addSubview:titleLable];
     return cell;
 }
-
-
-
 #pragma mark -------- 点击选择哪个图片
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     StarTextViewController *startTextVC = [[StarTextViewController alloc] init];
@@ -143,23 +140,15 @@ static NSString *headIndentfier = @"headIndentfier";
     startTextVC.startId = self.discoverIdArray[indexPath.row];
     [self.navigationController pushViewController:startTextVC animated:YES];
 }
-
-
-
 - (void)selectItemAtIndexPath:(nullable NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UICollectionViewScrollPosition)scrollPosition{
     scrollPosition = UICollectionViewScrollPositionTop;
 }
-
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
     HeadCollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headIndentfier forIndexPath:indexPath];
     //添加的代理 （在初始化的地方添加）执行点击按钮然后去推出相应的页面
     headView.delegate = self;
     return headView;
 }
-
-
 #pragma mark ----------- lazy loading
 - (UICollectionView *)collectionView{
     if (_collectionView == nil) {
@@ -167,22 +156,18 @@ static NSString *headIndentfier = @"headIndentfier";
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         //设置布局方向（默认垂直方向）
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        //        //水平方向
-        //        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
         //设置每一行间距
-        layout.minimumLineSpacing = 0;
+        layout.minimumLineSpacing = 1;
         //设置item间距
-        layout.minimumInteritemSpacing = 0;
-        //section的间距
-        layout.sectionInset = UIEdgeInsetsMake(4, 18, 10, 18);
+        layout.minimumInteritemSpacing = 1;
+        //section的间距 上，左，下，右
+        layout.sectionInset = UIEdgeInsetsMake(2, 5, 2, 0);
         //设置区头区尾大小
         layout.headerReferenceSize = CGSizeMake(kWidth, 464);
         //设置每个item的大小
-        layout.itemSize = CGSizeMake(160,180);
+        layout.itemSize = CGSizeMake(kWidth/2-10,kWidth/2+10);
         //通过一个layout布局来创建一个collectionView
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-        
         self.collectionView.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
         //设置代理
         self.collectionView.delegate = self;
@@ -191,32 +176,25 @@ static NSString *headIndentfier = @"headIndentfier";
         //上拉刷新  停不下来
 //        self.refreshControl = [[UIRefreshControl alloc] init];
 //        [self.collectionView addSubview:self.refreshControl];
-        
         //注册item类型
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"itemIdentifier"];
-        
         //注册头部
         [self.collectionView registerNib:[UINib nibWithNibName:@"Discover" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headIndentfier];
-        
     }
     return _collectionView;
 }
-
-
 - (NSMutableArray *)imageArray{
     if (_imageArray == nil) {
         self.imageArray = [NSMutableArray new];
     }
     return _imageArray;
 }
-
 - (NSMutableArray *)titleArray{
     if (_titleArray == nil) {
         self.titleArray = [NSMutableArray new];
     }
     return _titleArray;
 }
-
 - (NSMutableArray *)viewnumArray{
     if (_viewnumArray == nil) {
         self.viewnumArray = [NSMutableArray new];
@@ -228,7 +206,6 @@ static NSString *headIndentfier = @"headIndentfier";
         self.commentnumArray = [NSMutableArray new];
     }
     return _commentnumArray;
-    
 }
 - (NSMutableArray *)contentArray{
     if (_contentArray == nil) {

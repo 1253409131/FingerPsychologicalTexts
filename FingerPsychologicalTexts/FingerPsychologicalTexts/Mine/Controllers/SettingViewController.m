@@ -10,14 +10,14 @@
 #import "LoginViewController.h"
 #import "UIViewController+Common.h"
 #import "PrefixHeader.pch"
-@interface SettingViewController ()
+#import "ProgressHUD.h"
+#import <MessageUI/MessageUI.h>
+@interface SettingViewController ()<MFMailComposeViewControllerDelegate>
 @property (nonatomic,strong) UIButton *aBtn;
 @property (nonatomic,strong) UIButton *ideaBtn;
 @property (nonatomic,strong) UIButton *testBtn;
 @end
-
 @implementation SettingViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -59,15 +59,16 @@
     if (_testBtn == nil) {
         self.testBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.testBtn.frame = CGRectMake(10, 200, kWidth-20, 44);
-        [self.testBtn setTitle:@"检测最新版本" forState:UIControlStateNormal];
+        [self.testBtn setTitle:@"检测最新版本      当前版本1.0" forState:UIControlStateNormal];
         [self.testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.testBtn.backgroundColor = [UIColor whiteColor];
         self.testBtn.layer.cornerRadius = 5;
-        [self.ideaBtn addTarget:self action:@selector(threeBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.testBtn addTarget:self action:@selector(threeBtn:) forControlEvents:UIControlEventTouchUpInside];
         self.testBtn.tag = 3;
     }
     return _testBtn;
 }
+//分别点击三个按钮实现的方法
 - (void)threeBtn:(UIButton *)btn{
     switch (btn.tag) {
         case 1:{
@@ -76,10 +77,14 @@
         }
             break;
         case 2:{
-            
+            //发送邮件
+            [self sendEmail];
         }
             break;
         case 3:{
+            //检测当前版本
+            [ProgressHUD show:@"正在为您检测中..."];
+            [self performSelector:@selector(checkAppVersion) withObject:nil afterDelay:2.0];
             
         }
             break;
@@ -88,6 +93,37 @@
             break;
     }
 }
+- (void)checkAppVersion{
+    [ProgressHUD showSuccess:@"恭喜您！目前已是最高版本"];
+}
+//发送邮件
+- (void)sendEmail{
+    Class mailClass = NSClassFromString(@"MFMailComposeViewController");
+    if (mailClass != nil) {
+        if ([MFMailComposeViewController canSendMail]) {
+            //初始化发送邮件类对象
+            MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
+            //设置代理
+            mailVC.mailComposeDelegate = self;
+            //设置主题
+            [mailVC setSubject:@"用户反馈"];
+            //设置收件人
+            NSArray *receive = [NSArray arrayWithObjects:@"1253409131@qq.com", nil];
+            [mailVC setToRecipients:receive];
+            //设置发送内容
+            NSString *text = @"请留下您宝贵的意见";
+            [mailVC setMessageBody:text isHTML:NO];
+            //推出视图
+            [self presentViewController:mailVC animated:YES completion:nil];
+        }else{
+            QJZLog(@"未配置邮箱账号");
+        }
+        
+    }else{
+        QJZLog(@"当前设备不能发送");
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;

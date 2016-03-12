@@ -19,28 +19,24 @@
 @property (nonatomic, strong) UILabel *viewnumLable;
 @property (nonatomic, strong) UILabel *commentnumLable;
 @property (nonatomic, strong) UILabel *resultLable;
-@property (nonatomic, strong) UILabel *contentLable;
+@property (nonatomic, strong) UIWebView *contentWeb;
 @property (nonatomic, strong) NSMutableArray *allIdArray;
 @property (nonatomic, strong) NSMutableDictionary *choicesDic;
 @property(nonatomic, strong) NSString *idsrting;
-
-
 @end
-
 @implementation ResultViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor yellowColor];
-    
     self.view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1.0];
     [self showBackButtonWithImage:@"back"];
     [self.view addSubview:self.textScrollView];
     [self.textScrollView addSubview:self.viewnumLable];
     [self.textScrollView addSubview:self.commentnumLable];
     [self.textScrollView addSubview:self.resultLable];
-    [self.textScrollView addSubview:self.contentLable];
+    [self.textScrollView addSubview:self.contentWeb];
     NSLog(@"self.choicesIdArray = %@", self.choicesIdArray);
     [self.choicesDic setValue:@"key" forKey:@"3a4b2a12539a916c040d069ae8ac8310"];
      [self.choicesDic setValue:@"ceshi_id" forKey:self.testId];
@@ -49,23 +45,9 @@
         [self.choicesDic setValue:@"choice" forKey:self.choicesIdArray[i]];
     }
     NSLog(@"%@", self.choicesDic);
-    
     [self loadData];
 }
-//@{@"key":@"3a4b2a12539a916c040d069ae8ac8310",@"ceshi_id":self.testId,@"choice":@"6333",@"choice":@"6338",@"choice":@"6339",@"choice":@"6347",@"choice":@"6354",@"choice":@"6364"}
-
-
-
 - (void)loadData{
-//    for (int i = 0; i < self.choicesIdArray.count; i++) {
-//        NSString *str = [NSString stringWithFormat:@"choice=%@", self.choicesIdArray[i]];
-//        NSLog(@"%@", str);
-//        self.idsrting = [self.idsrting stringByAppendingString:str];
-//        
-//    }
-//    
-//    NSLog(@"%@", self.idsrting);
-    
     if (![ZMYNetManager shareZMYNetManager].isZMYNetWorkRunning) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的网络有问题，请检查网络" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -79,7 +61,6 @@
         [alert addAction:quxiao];
         [self presentViewController:alert animated:YES completion:nil];
     }
-
     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html; charset=utf-8"];
     [sessionManager POST:kResult parameters:self.choicesDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -128,7 +109,7 @@
 }
 - (UILabel *)resultLable{
     if (_resultLable == nil) {
-        self.resultLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 355, 44)];
+        self.resultLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, kWidth-20, 44)];
         self.resultLable.backgroundColor = [UIColor colorWithRed:57/255.0 green:190/255.0 blue:112/255.0 alpha:1.0];
         self.resultLable.text = @"我的结果：";
         self.resultLable.textColor = [UIColor whiteColor];
@@ -137,16 +118,16 @@
     }
     return _resultLable;
 }
-- (UILabel *)contentLable{
-    if (_contentLable == nil) {
-        self.contentLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 105, 355, 300)];
-        self.contentLable.backgroundColor = [UIColor whiteColor];
-        self.contentLable.font = [UIFont systemFontOfSize:14.0];
-        self.contentLable.textColor = [UIColor grayColor];
-        self.contentLable.numberOfLines = 0;
+
+-(UIWebView *)contentWeb {
+    if (_contentWeb == nil) {
+        self.contentWeb = [[UIWebView alloc] initWithFrame:CGRectMake(10, 105, kWidth-20, kHeight-64)];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.xinli001.com/ceshi/"]];
+        [self.contentWeb loadRequest:request];
     }
-    return _contentLable;
+    return _contentWeb;
 }
+
 - (NSMutableArray *)allIdArray{
     if (_allIdArray == nil) {
         self.allIdArray = [NSMutableArray new];

@@ -24,19 +24,16 @@
         [self.delegate pressBtnTypes:PressButtonTypeLove];
     }
 }
-
 - (IBAction)characterBtn:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pressBtnTypes:)]) {
         [self.delegate pressBtnTypes:PressButtonTypeCharacter];
     }
 }
-
 - (IBAction)powerBtn:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pressBtnTypes:)]) {
         [self.delegate pressBtnTypes:PressButtonTypePower];
     }
 }
-
 - (IBAction)memberBtn:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pressBtnTypes:)]) {
         [self.delegate pressBtnTypes:PressButtonTypeMember];

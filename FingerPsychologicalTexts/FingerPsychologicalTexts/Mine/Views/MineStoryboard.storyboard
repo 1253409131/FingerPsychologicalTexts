@@ -3,74 +3,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--我的-->
-        <scene sceneID="vuz-cb-Eha">
-            <objects>
-                <viewController id="f0x-0n-fha" customClass="MineViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tpv-qY-tKe"/>
-                        <viewControllerLayoutGuide type="bottom" id="XEh-AV-Bc0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qSQ-gm-Vqd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myBg" translatesAutoresizingMaskIntoConstraints="NO" id="sND-by-KK6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="157"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myNoLogin" translatesAutoresizingMaskIntoConstraints="NO" id="X9m-j2-kNV">
-                                <rect key="frame" x="147" y="179" width="80" height="80"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPH-rn-jud">
-                                <rect key="frame" x="152" y="327" width="71" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="立即注册">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="registerBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="Bs7-ev-z7s"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8MI-gm-wjC">
-                                <rect key="frame" x="333" y="72" width="35" height="35"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="settingBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="ent-HU-uEO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmb-Fk-za6">
-                                <rect key="frame" x="107" y="275" width="160" height="44"/>
-                                <color key="backgroundColor" red="0.22352941179999999" green="0.74509803919999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="登录">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginBtn:" destination="f0x-0n-fha" eventType="touchUpInside" id="139-fO-ZWE"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="myBgSetting" translatesAutoresizingMaskIntoConstraints="NO" id="5a0-AN-OYC">
-                                <rect key="frame" x="333" y="72" width="35" height="35"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="我的" id="yme-mJ-ArT"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="loginBtn" destination="Dmb-Fk-za6" id="Gcd-H5-D8X"/>
-                        <outlet property="registerBtn" destination="PPH-rn-jud" id="DuR-t7-3Jz"/>
-                        <outlet property="settingBtn" destination="8MI-gm-wjC" id="66y-5e-nxu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4VH-Iu-C4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1046.5" y="422.5"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="OKb-Yw-wSG">
             <objects>
@@ -87,12 +22,103 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="f0x-0n-fha" kind="relationship" relationship="rootViewController" id="WFx-C8-8ha"/>
+                        <segue destination="yBl-O9-yfd" kind="relationship" relationship="rootViewController" id="Haj-Of-fXQ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEc-ya-HJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="625.5" y="431.5"/>
+            <point key="canvasLocation" x="82.5" y="419.5"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="KoX-cX-2SF">
+            <objects>
+                <viewController id="yBl-O9-yfd" customClass="MineViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lzd-uH-7CB"/>
+                        <viewControllerLayoutGuide type="bottom" id="fuV-1w-sKG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yAc-0o-gXb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="myBg" translatesAutoresizingMaskIntoConstraints="NO" id="6HV-TJ-Gqx">
+                                <rect key="frame" x="0.0" y="64" width="375" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="nJr-x5-fhJ"/>
+                                    <constraint firstAttribute="width" constant="375" id="ors-Fp-MBz"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="myNoLogin" translatesAutoresizingMaskIntoConstraints="NO" id="cFs-PS-2IX">
+                                <rect key="frame" x="148" y="184" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="Ghl-Fg-v7U"/>
+                                    <constraint firstAttribute="width" constant="80" id="p3H-6Q-4Jq"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GE5-1S-yAt">
+                                <rect key="frame" x="98" y="284" width="180" height="44"/>
+                                <color key="backgroundColor" red="0.22352941176470587" green="0.74509803921568629" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="登录">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginAction:" destination="yBl-O9-yfd" eventType="touchUpInside" id="2Hk-6l-cpc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAN-yL-iGa">
+                                <rect key="frame" x="143" y="327" width="90" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="fhW-ix-ZdH"/>
+                                    <constraint firstAttribute="height" constant="36" id="mAr-sU-Nkq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="立即注册">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerAction:" destination="yBl-O9-yfd" eventType="touchUpInside" id="ujd-4V-9Di"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAe-2D-GzK">
+                                <rect key="frame" x="327" y="79" width="35" height="40"/>
+                                <connections>
+                                    <action selector="settingAction:" destination="yBl-O9-yfd" eventType="touchUpInside" id="ZUX-QE-Pjy"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="myBgSetting" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-07-flO">
+                                <rect key="frame" x="327" y="81" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="5lR-n4-CNz"/>
+                                    <constraint firstAttribute="height" constant="35" id="xbL-U5-fAU"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wAe-2D-GzK" firstAttribute="top" secondItem="lzd-uH-7CB" secondAttribute="bottom" constant="15" id="7hO-tW-bKU"/>
+                            <constraint firstItem="GE5-1S-yAt" firstAttribute="leading" secondItem="yAc-0o-gXb" secondAttribute="leadingMargin" constant="78" id="Ihn-UI-JA4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wAe-2D-GzK" secondAttribute="trailing" constant="-7" id="OIG-6I-ZQI"/>
+                            <constraint firstItem="cFs-PS-2IX" firstAttribute="centerX" secondItem="6HV-TJ-Gqx" secondAttribute="centerX" id="QOH-c6-TMo"/>
+                            <constraint firstItem="6HV-TJ-Gqx" firstAttribute="leading" secondItem="yAc-0o-gXb" secondAttribute="leadingMargin" constant="-20" id="TkP-iW-ZN1"/>
+                            <constraint firstItem="GE5-1S-yAt" firstAttribute="centerX" secondItem="6HV-TJ-Gqx" secondAttribute="centerX" id="TpV-0e-Tbj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GE5-1S-yAt" secondAttribute="trailing" constant="77" id="gUE-P1-7Yy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6HV-TJ-Gqx" secondAttribute="trailing" constant="-20" id="nBg-qy-Hn1"/>
+                            <constraint firstItem="XAN-yL-iGa" firstAttribute="centerX" secondItem="GE5-1S-yAt" secondAttribute="centerX" id="pxm-ID-Xbu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NTr-07-flO" secondAttribute="trailing" constant="-7" id="zJX-1b-8kS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="我的" id="pZo-Po-dt5"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="loginBtn" destination="GE5-1S-yAt" id="Sng-EM-msV"/>
+                        <outlet property="registerBtn" destination="XAN-yL-iGa" id="Cac-oO-b88"/>
+                        <outlet property="settingBtn" destination="wAe-2D-GzK" id="o7s-f6-YwT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SuA-ql-53L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="526.5" y="419.5"/>
         </scene>
     </scenes>
     <resources>
